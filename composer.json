@@ -1,6 +1,6 @@
 {
   "name": "istianxin/decorator-laravel",
-  "description": "Decorate your methods/functions in laravel",
+  "description": "Decorate your method/function in laravel",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -12,7 +12,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": "^7.0",
-    "laravel/framework": "^5.1 || ^6.0"
+    "laravel/framework": "^6.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^8.5",

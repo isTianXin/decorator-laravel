@@ -21,6 +21,7 @@ class DecoratorTest extends TestCase
         };
         $number = 1;
         $decorator = new Decorator();
+
         // object
         $middleware = new AdditionMiddleware();
         $result = $decorator->setMiddleware($middleware)
@@ -44,6 +45,7 @@ class DecoratorTest extends TestCase
         $b = 2;
         $minuend = 3;
         $decorator = new Decorator();
+
         // classname with parameter
         $middleware = SubtractionMiddleware::class . ':' . $minuend;
         $result = $decorator->setCallback([$class, 'add'])
@@ -52,6 +54,7 @@ class DecoratorTest extends TestCase
             ->decorate();
         $this->assertEquals($a + $b - $minuend, $result);
         $this->assertEquals(get_class($class) . '@add', $decorator->getNormalizedCallbackName());
+
         //normal class
         $math = new Math();
         $factor = 2;
@@ -83,12 +86,19 @@ class DecoratorTest extends TestCase
 
         $this->assertEquals($a - $b - $minuend, $result);
         $this->assertEquals(Math::class . '@subtract', $decorator->getNormalizedCallbackName());
+
         // classname with static method
         $callback = Math::class . '@subtract';
         $result = $decorator->setCallback($callback)
             //Note that parameter name is specified
             ->setParameters(['b' => $b, 'a' => $a])
             ->decorate();
+        $this->assertEquals($a - $b - $minuend, $result);
+        $this->assertEquals($callback, $decorator->getNormalizedCallbackName());
+
+        // static method
+        $callback = Math::class . '::subtract';
+        $result = $decorator->setCallback($callback)->decorate();
         $this->assertEquals($a - $b - $minuend, $result);
         $this->assertEquals($callback, $decorator->getNormalizedCallbackName());
 
@@ -104,6 +114,7 @@ class DecoratorTest extends TestCase
     public function testCallbackWrong()
     {
         $decorator = new Decorator();
+
         $decorator->setCallback([Math::class])
             ->setParameters([1, 2])
             ->setMiddleware(AdditionMiddleware::class);
@@ -122,6 +133,7 @@ class DecoratorTest extends TestCase
         $minuend = 1;
         $factor = 10;
         $dividend = 2;
+
         //middleware with two parameters
         $addition_middleware = AdditionMiddleware::class . ':' . $addend . ',' . $another_addend;
         $subtraction_middleware = new SubtractionMiddleware();
