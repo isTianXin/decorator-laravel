@@ -27,8 +27,9 @@ class MultiplicationMiddleware
 
 ### Callback And Parameters
 
-Except for middleware, Decorator accepts two other parameters, which are also the first two parameters of  ```app()->call()```.
-Callback is a callable, which can be invoked by ```app()->call()``` and ```call_user_func_array```, such as: ```DummyClass@method```, a closure, ```[Dummyclass::class,staticMethod]```, ```[new DummyClass(), method]```, ```DummyClass::staticMethod```.
+Except for middleware, decorator accepts two other parameters, callback and parameters, which are also the first two parameters of  ```app()->call()```.
+
+Callback is a callable, which can be invoked by ```app()->call()``` and ```call_user_func_array()```, such as: ```DummyClass@method```, a closure, ```[Dummyclass::class,staticMethod]```, ```[new DummyClass(), method]```, ```DummyClass::staticMethod```.
 
 Parameters is an array of parameters of the callbale.
 
