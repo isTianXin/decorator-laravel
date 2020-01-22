@@ -34,6 +34,48 @@ Parameters is an array of parameters of the callbale.
 
 ### Example
 
-see [TestCase](./tests/DecoratorTest.php).
+#### Single Middleware
+```
+$class = new class {
+    public function add($a, $b)
+    {
+        return $a + $b;
+    }
+};
+$a = 1;
+$b = 2;
+$factor = 3;
+
+$decorator = new Decorator();
+// classname with parameter
+$middleware = MultiplicationMiddleware::class . ':' . $factor;
+$result = $decorator->setCallback([$class, 'add'])
+    ->setMiddleware($middleware)
+    ->setParameters([$a, $b])
+    ->decorate();
+echo $result; // 9
+```
+#### Multiple Middleware
+
+```
+$decorator->setMiddleware([
+    $object_middleware1,
+    middleware2::class,
+    middleware3:class:param1,param2,
+    $closure_middleware4
+]);
+```
+or
+```
+$decorator->setMiddleware([
+    $object_middleware1,
+    middleware2::class
+])->appendMiddleware([
+    middleware3:class:param1,param2,
+    $closure_middleware4
+])
+```
+
+See more [TestCase](./tests/DecoratorTest.php).
 
 
